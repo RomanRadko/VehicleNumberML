@@ -11,7 +11,6 @@ import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer
 import com.route4me.vehiclenum.VisionProcessorBase
 import com.route4me.vehiclenum.common.FrameMetadata
 import com.route4me.vehiclenum.common.GraphicOverlay
-import java.util.*
 
 /**
  * Processor for the cloud text detector demo.
