@@ -36,25 +36,27 @@ class CloudTextRecognitionProcessor : VisionProcessorBase<FirebaseVisionText>() 
         }
         val blocks = results.textBlocks
         val sortedBlocks = blocks.sortedBy { -it.boundingBox!!.height() }
-        val trimmedBlocks = mutableListOf<FirebaseVisionText.TextBlock>(sortedBlocks[0])
-        for (i in trimmedBlocks.indices) {
-            val lines = trimmedBlocks[i].lines
-            for (j in lines.indices) {
-                val elements = lines[j].elements
-                for (l in elements.indices) {
-                    val cloudTextGraphic = CloudTextGraphic(
-                        graphicOverlay,
-                        elements[l]
-                    )
-                    graphicOverlay.add(cloudTextGraphic)
-                    var number = ""
-                    for (element in elements) {
-                        number += element.text
+        if (sortedBlocks.isNotEmpty()) {
+            val trimmedBlocks = mutableListOf<FirebaseVisionText.TextBlock>(sortedBlocks[0])
+            for (i in trimmedBlocks.indices) {
+                val lines = trimmedBlocks[i].lines
+                for (j in lines.indices) {
+                    val elements = lines[j].elements
+                    for (l in elements.indices) {
+                        val cloudTextGraphic = CloudTextGraphic(
+                            graphicOverlay,
+                            elements[l]
+                        )
+                        graphicOverlay.add(cloudTextGraphic)
+                        var number = ""
+                        for (element in elements) {
+                            number += element.text
+                        }
+                        Toast.makeText(cloudTextGraphic.applicationContext,
+                            "RESULT :: $number", Toast.LENGTH_LONG
+                        ).show()
+                        graphicOverlay.postInvalidate()
                     }
-                    Toast.makeText(cloudTextGraphic.applicationContext,
-                        "RESULT :: $number", Toast.LENGTH_LONG
-                    ).show()
-                    graphicOverlay.postInvalidate()
                 }
             }
         }

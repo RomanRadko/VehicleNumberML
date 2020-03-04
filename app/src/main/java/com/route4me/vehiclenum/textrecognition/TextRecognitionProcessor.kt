@@ -2,6 +2,7 @@ package com.route4me.vehiclenum.textrecognition
 
 import android.graphics.Bitmap
 import android.util.Log
+import android.widget.Toast
 import com.google.android.gms.tasks.Task
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
@@ -44,14 +45,23 @@ class TextRecognitionProcessor : VisionProcessorBase<FirebaseVisionText>() {
         }
         val blocks = results.textBlocks
         val sortedBlocks = blocks.sortedBy { -it.boundingBox!!.height() }
-        val trimmedBlocks = mutableListOf<FirebaseVisionText.TextBlock>(sortedBlocks[0])
-        for (i in trimmedBlocks.indices) {
-            val lines = trimmedBlocks[i].lines
-            for (j in lines.indices) {
-                val elements = lines[j].elements
-                for (k in elements.indices) {
-                    val textGraphic = TextGraphic(graphicOverlay, elements[k])
-                    graphicOverlay.add(textGraphic)
+        if (sortedBlocks.isNotEmpty()) {
+            val trimmedBlocks = mutableListOf<FirebaseVisionText.TextBlock>(sortedBlocks[0])
+            for (i in trimmedBlocks.indices) {
+                val lines = trimmedBlocks[i].lines
+                for (j in lines.indices) {
+                    val elements = lines[j].elements
+                    for (k in elements.indices) {
+                        val textGraphic = TextGraphic(graphicOverlay, elements[k])
+                        var number = ""
+                        for (element in elements) {
+                            number += element.text
+                        }
+                        Toast.makeText(textGraphic.applicationContext,
+                            "RESULT :: $number", Toast.LENGTH_LONG
+                        ).show()
+                        graphicOverlay.add(textGraphic)
+                    }
                 }
             }
         }
