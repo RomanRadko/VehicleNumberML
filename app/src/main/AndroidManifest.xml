@@ -15,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.route4me.vehiclenum.ChooserActivity">
+        <activity android:name="com.route4me.vehiclenum.StartRecognitionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,8 +26,7 @@
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="ocr" />
 
-        <activity android:name=".LivePreviewActivity" android:exported="true"/>
-        <activity android:name=".StillImageActivity" android:exported="true"/>
+        <activity android:name="com.route4me.licenseplate.StillImageActivity" android:exported="true"/>
     </application>
 
 
