@@ -60,4 +60,5 @@
     <string name="is_your_number">Is this your number?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="recognized_number">Recognized number:</string>
 </resources>

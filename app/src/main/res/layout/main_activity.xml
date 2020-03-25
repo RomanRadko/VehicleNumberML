@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/startRecognitionBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/start_recognition" />
+
+        <com.route4me.licenseplate.view.BaseTextView
+            android:id="@+id/recognizedNumberLbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/recognized_number"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:visibility="gone" />
+
+        <com.route4me.licenseplate.view.BaseTextView
+            android:id="@+id/carNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+</FrameLayout>

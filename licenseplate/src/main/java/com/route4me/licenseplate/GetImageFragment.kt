@@ -2,7 +2,9 @@ package com.route4me.licenseplate
 
 import android.app.Activity
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
@@ -12,25 +14,33 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.util.Pair
+import android.view.LayoutInflater
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import android.view.ViewGroup
+import androidx.annotation.NonNull
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.google.android.gms.common.annotation.KeepName
 import com.route4me.licenseplate.common.VisionImageProcessor
 import com.route4me.licenseplate.preferences.RecognitionPreferences
 import com.route4me.licenseplate.textrecognition.TextRecognitionProcessor
-import kotlinx.android.synthetic.main.activity_still_image.*
+import kotlinx.android.synthetic.main.get_image_layout.*
+import kotlinx.android.synthetic.main.license_plate_layout.*
 import kotlinx.android.synthetic.main.license_plate_layout.view.*
 import java.io.IOException
+import java.util.*
 import kotlin.math.max
 
-/** Activity demonstrating different image detector features with a still image from camera.  */
+/** Fragment demonstrating different image detector features with a still image from camera.  */
 @KeepName
-class StillImageActivity : AppCompatActivity() {
+class GetImageFragment : Fragment() {
 
     companion object {
 
-        private const val TAG = "StillImageActivity"
+        private const val TAG = "GetImageFragment"
         const val SHOULD_DRAW_OVERLAY = "SHOULD_DRAW_OVERLAY"
+        const val CAR_PLATE_NUMBER = "CAR_PLATE_NUMBER"
         private const val SIZE_PREVIEW = "w:max" // Available on-screen width.
         private const val SIZE_1024_768 = "w:1024" // ~1024*768 in a normal ratio
         private const val SIZE_640_480 = "w:640" // ~640*480 in a normal ratio
@@ -42,6 +52,11 @@ class StillImageActivity : AppCompatActivity() {
 
         private const val REQUEST_IMAGE_CAPTURE = 1001
         private const val REQUEST_CHOOSE_IMAGE = 1002
+        private const val PERMISSION_REQUESTS = 1
+
+        fun newInstance(): GetImageFragment {
+            return GetImageFragment()
+        }
     }
 
     private var selectedSize: String = SIZE_PREVIEW
@@ -57,17 +72,9 @@ class StillImageActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        RecognitionPreferences(this).showTextOverlay = intent.extras!!.getBoolean(
+        RecognitionPreferences(context!!).showTextOverlay = arguments!!.getBoolean(
             SHOULD_DRAW_OVERLAY
         )
-        setContentView(R.layout.activity_still_image)
-        licensePlateView.yesBtn.setOnClickListener {
-            finish()
-        }
-        licensePlateView.noBtn.setOnClickListener {
-            startCameraIntentForResult()
-        }
         if (previewPane == null) {
             Log.d(TAG, "Preview is null")
         }
@@ -89,7 +96,32 @@ class StillImageActivity : AppCompatActivity() {
                 tryReloadAndDetectInImage()
             }
         }
-        startCameraIntentForResult()
+        if (!allPermissionsGranted()) {
+            getRuntimePermissions()
+        } else {
+            startCameraIntentForResult()
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.get_image_layout, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        licensePlateView.yesBtn.setOnClickListener {
+            val launchIntent: Intent =
+                activity!!.packageManager.getLaunchIntentForPackage("com.route4me.vehiclenum")!!
+            launchIntent.putExtra(CAR_PLATE_NUMBER, licenseNumber.text)
+            startActivity(launchIntent)
+        }
+        licensePlateView.noBtn.setOnClickListener {
+            startCameraIntentForResult()
+        }
     }
 
     override fun onResume() {
@@ -99,7 +131,7 @@ class StillImageActivity : AppCompatActivity() {
         tryReloadAndDetectInImage()
     }
 
-    public override fun onSaveInstanceState(outState: Bundle) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
         with(outState) {
@@ -110,17 +142,30 @@ class StillImageActivity : AppCompatActivity() {
         }
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (allPermissionsGranted()) {
+            startCameraIntentForResult()
+        }
+    }
+
     private fun startCameraIntentForResult() {
         // Clean up last time's image
         imageUri = null
         previewPane?.setImageBitmap(null)
 
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        takePictureIntent.resolveActivity(packageManager)?.let {
+        takePictureIntent.resolveActivity(activity!!.packageManager)?.let {
             val values = ContentValues()
             values.put(MediaStore.Images.Media.TITLE, "New Picture")
             values.put(MediaStore.Images.Media.DESCRIPTION, "From Camera")
-            imageUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+            imageUri = activity!!.contentResolver.insert(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                values
+            )
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
         }
@@ -147,9 +192,9 @@ class StillImageActivity : AppCompatActivity() {
             previewOverlay?.clear()
 
             val imageBitmap = if (Build.VERSION.SDK_INT < 29) {
-                MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
+                MediaStore.Images.Media.getBitmap(activity!!.contentResolver, imageUri)
             } else {
-                val source = ImageDecoder.createSource(contentResolver, imageUri!!)
+                val source = ImageDecoder.createSource(activity!!.contentResolver, imageUri!!)
                 ImageDecoder.decodeBitmap(source)
             }
 
@@ -241,10 +286,64 @@ class StillImageActivity : AppCompatActivity() {
     }
 
     private fun createImageProcessor() {
-        imageProcessor = TextRecognitionProcessor(this) {
+        imageProcessor = TextRecognitionProcessor(context!!) {
             licensePlateView.visibility = View.VISIBLE
             licensePlateView.bindData(it!!)
         }
+    }
+
+    private fun getRequiredPermissions(): Array<String?> {
+        return try {
+            val info = activity!!.packageManager
+                .getPackageInfo(activity!!.packageName, PackageManager.GET_PERMISSIONS)
+            val ps = info.requestedPermissions
+            if (ps != null && ps.isNotEmpty()) {
+                ps
+            } else {
+                arrayOfNulls(0)
+            }
+        } catch (e: Exception) {
+            arrayOfNulls(0)
+        }
+    }
+
+    private fun allPermissionsGranted(): Boolean {
+        for (permission in getRequiredPermissions()) {
+            permission?.let {
+                if (!isPermissionGranted(context!!, it)) {
+                    return false
+                }
+            }
+        }
+        return true
+    }
+
+    private fun getRuntimePermissions() {
+        val allNeededPermissions = ArrayList<String>()
+        for (permission in getRequiredPermissions()) {
+            permission?.let {
+                if (!isPermissionGranted(context!!, it)) {
+                    allNeededPermissions.add(permission)
+                }
+            }
+        }
+
+        if (allNeededPermissions.isNotEmpty()) {
+            requestPermissions(allNeededPermissions.toTypedArray(), PERMISSION_REQUESTS)
+        }
+    }
+
+    private fun isPermissionGranted(context: Context, permission: String): Boolean {
+        if (ContextCompat.checkSelfPermission(
+                context,
+                permission
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            Log.i(TAG, "Permission granted: $permission")
+            return true
+        }
+        Log.i(TAG, "Permission NOT granted: $permission")
+        return false
     }
 
 }
