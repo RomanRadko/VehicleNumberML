@@ -122,6 +122,9 @@ class GetImageFragment : Fragment() {
         licensePlateView.noBtn.setOnClickListener {
             startCameraIntentForResult()
         }
+        licensePlateView.recaptureBtn.setOnClickListener {
+            startCameraIntentForResult()
+        }
     }
 
     override fun onResume() {
@@ -171,17 +174,6 @@ class GetImageFragment : Fragment() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
-            tryReloadAndDetectInImage()
-        } else if (requestCode == REQUEST_CHOOSE_IMAGE && resultCode == Activity.RESULT_OK) {
-            // In this case, imageUri is returned by the chooser, save it.
-            imageUri = data!!.data
-            tryReloadAndDetectInImage()
-        }
-    }
-
     private fun tryReloadAndDetectInImage() {
         try {
             if (imageUri == null) {
@@ -221,8 +213,8 @@ class GetImageFragment : Fragment() {
             resizedBitmap?.let {
                 imageProcessor?.process(it, previewOverlay)
             }
-        } catch (e: IOException) {
-            Log.e(TAG, "Error retrieving saved image")
+        } catch (exception: IOException) {
+            Log.e(TAG, "Error retrieving saved image", exception)
         }
     }
 

@@ -60,6 +60,8 @@ class TextRecognitionProcessor(private val context: Context, private val callbac
                     }
                 }
             }
+        } else {
+            callback.invoke("")
         }
         graphicOverlay.postInvalidate()
     }

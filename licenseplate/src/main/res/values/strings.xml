@@ -60,4 +60,6 @@
     <string name="is_your_number">Is this your number?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="sorry_no_results">Sorry, there are no text to recognize, please try to recapture.</string>
+  <string name="recapture">Recapture</string>
 </resources>

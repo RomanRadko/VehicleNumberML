@@ -6,58 +6,99 @@
     android:orientation="vertical"
     android:padding="20dp">
 
-    <com.route4me.licenseplate.view.BaseTextView
+    <LinearLayout
+        android:id="@+id/resultsLayout"
+        android:visibility="gone"
+        android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:text="@string/is_your_number"
-        android:textColor="@color/colorPrimary"
-        android:textSize="18sp" />
-
-    <com.route4me.licenseplate.view.BaseTextView
-        android:id="@+id/licenseNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/ic_license_plate"
-        android:gravity="center"
-        android:textColor="@android:color/white"
-        android:textSize="24sp" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
         <com.route4me.licenseplate.view.BaseTextView
-            android:id="@+id/yesBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:text="@string/is_your_number"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
+
+        <com.route4me.licenseplate.view.BaseTextView
+            android:id="@+id/licenseNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/ic_license_plate"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <com.route4me.licenseplate.view.BaseTextView
+                android:id="@+id/yesBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/yes_btn_border"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/yes"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+            <com.route4me.licenseplate.view.BaseTextView
+                android:id="@+id/noBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/no_btn_border"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/no"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/noResultsLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <com.route4me.licenseplate.view.BaseTextView
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="@string/sorry_no_results"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
+
+        <com.route4me.licenseplate.view.BaseTextView
+            android:id="@+id/recaptureBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@drawable/yes_btn_border"
+            android:background="@drawable/recapture_btn_border"
+            android:layout_gravity="center"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="@string/yes"
+            android:text="@string/recapture"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
 
-        <com.route4me.licenseplate.view.BaseTextView
-            android:id="@+id/noBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/no_btn_border"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="@string/no"
-            android:textColor="@android:color/white"
-            android:textSize="20sp" />
+    </LinearLayout>
 
-    </RelativeLayout>
 
 </LinearLayout>
