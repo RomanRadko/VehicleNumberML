@@ -1,11 +1,11 @@
-package com.route4me.licenseplate.view
+package com.radko.licenseplate.view
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
-import com.route4me.licenseplate.R
+import com.radko.licenseplate.R
 import kotlinx.android.synthetic.main.license_plate_layout.view.*
 
 class LicensePlateView @JvmOverloads constructor(

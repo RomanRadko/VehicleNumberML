@@ -1,4 +1,4 @@
-package com.route4me.licenseplate.textrecognition
+package com.radko.licenseplate.textrecognition
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -8,10 +8,10 @@ import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.firebase.ml.vision.text.FirebaseVisionText
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer
-import com.route4me.licenseplate.VisionProcessorBase
-import com.route4me.licenseplate.common.FrameMetadata
-import com.route4me.licenseplate.common.GraphicOverlay
-import com.route4me.licenseplate.preferences.RecognitionPreferences
+import com.radko.licenseplate.VisionProcessorBase
+import com.radko.licenseplate.common.FrameMetadata
+import com.radko.licenseplate.common.GraphicOverlay
+import com.radko.licenseplate.preferences.RecognitionPreferences
 import java.io.IOException
 
 /** Processor for the text recognition demo.  */

@@ -1,6 +1,5 @@
-package com.route4me.licenseplate
+package com.radko.licenseplate
 
-import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -17,14 +16,12 @@ import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.NonNull
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.gms.common.annotation.KeepName
-import com.route4me.licenseplate.common.VisionImageProcessor
-import com.route4me.licenseplate.preferences.RecognitionPreferences
-import com.route4me.licenseplate.textrecognition.TextRecognitionProcessor
+import com.radko.licenseplate.common.VisionImageProcessor
+import com.radko.licenseplate.preferences.RecognitionPreferences
+import com.radko.licenseplate.textrecognition.TextRecognitionProcessor
 import kotlinx.android.synthetic.main.get_image_layout.*
 import kotlinx.android.synthetic.main.license_plate_layout.*
 import kotlinx.android.synthetic.main.license_plate_layout.view.*

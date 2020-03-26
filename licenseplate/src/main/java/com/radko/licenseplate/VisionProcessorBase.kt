@@ -1,14 +1,14 @@
-package com.route4me.licenseplate
+package com.radko.licenseplate
 
 import android.graphics.Bitmap
 import androidx.annotation.GuardedBy
 import com.google.android.gms.tasks.Task
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata
-import com.route4me.licenseplate.common.BitmapUtils
-import com.route4me.licenseplate.common.FrameMetadata
-import com.route4me.licenseplate.common.GraphicOverlay
-import com.route4me.licenseplate.common.VisionImageProcessor
+import com.radko.licenseplate.common.BitmapUtils
+import com.radko.licenseplate.common.FrameMetadata
+import com.radko.licenseplate.common.GraphicOverlay
+import com.radko.licenseplate.common.VisionImageProcessor
 import java.nio.ByteBuffer
 
 /**

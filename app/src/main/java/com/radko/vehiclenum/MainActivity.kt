@@ -1,4 +1,4 @@
-package com.route4me.vehiclenum
+package com.radko.vehiclenum
 
 import android.os.Bundle
 import android.view.View
@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.route4me.licenseplate.GetImageFragment
+import com.radko.licenseplate.GetImageFragment
 import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : AppCompatActivity(),

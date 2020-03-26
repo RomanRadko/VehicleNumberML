@@ -1,11 +1,11 @@
-package com.route4me.licenseplate.textrecognition
+package com.radko.licenseplate.textrecognition
 
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import com.google.firebase.ml.vision.text.FirebaseVisionText
-import com.route4me.licenseplate.common.GraphicOverlay
+import com.radko.licenseplate.common.GraphicOverlay
 
 /**
  * Graphic instance for rendering TextBlock position, size, and ID within an associated graphic

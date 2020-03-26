@@ -1,4 +1,4 @@
-package com.route4me.licenseplate.view
+package com.radko.licenseplate.view
 
 import android.content.Context
 import android.graphics.Typeface

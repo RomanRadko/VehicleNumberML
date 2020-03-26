@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <com.route4me.licenseplate.view.BaseTextView
+        <com.radko.licenseplate.view.BaseTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -22,7 +22,7 @@
             android:textColor="@color/colorPrimary"
             android:textSize="18sp" />
 
-        <com.route4me.licenseplate.view.BaseTextView
+        <com.radko.licenseplate.view.BaseTextView
             android:id="@+id/licenseNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
             android:layout_margin="10dp"
             android:orientation="horizontal">
 
-            <com.route4me.licenseplate.view.BaseTextView
+            <com.radko.licenseplate.view.BaseTextView
                 android:id="@+id/yesBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
 
-            <com.route4me.licenseplate.view.BaseTextView
+            <com.radko.licenseplate.view.BaseTextView
                 android:id="@+id/noBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
         android:orientation="vertical"
         android:visibility="gone">
 
-        <com.route4me.licenseplate.view.BaseTextView
+        <com.radko.licenseplate.view.BaseTextView
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
@@ -85,7 +85,7 @@
             android:textColor="@color/colorPrimary"
             android:textSize="18sp" />
 
-        <com.route4me.licenseplate.view.BaseTextView
+        <com.radko.licenseplate.view.BaseTextView
             android:id="@+id/recaptureBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

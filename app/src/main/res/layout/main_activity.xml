@@ -17,7 +17,7 @@
             android:gravity="center"
             android:text="@string/start_recognition" />
 
-        <com.route4me.licenseplate.view.BaseTextView
+        <com.radko.licenseplate.view.BaseTextView
             android:id="@+id/recognizedNumberLbl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             android:textSize="20sp"
             android:visibility="gone" />
 
-        <com.route4me.licenseplate.view.BaseTextView
+        <com.radko.licenseplate.view.BaseTextView
             android:id="@+id/carNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

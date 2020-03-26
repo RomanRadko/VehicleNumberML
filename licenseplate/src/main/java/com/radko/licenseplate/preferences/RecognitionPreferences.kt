@@ -1,4 +1,4 @@
-package com.route4me.licenseplate.preferences
+package com.radko.licenseplate.preferences
 
 import android.content.Context
 

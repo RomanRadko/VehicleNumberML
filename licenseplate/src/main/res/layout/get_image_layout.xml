@@ -17,7 +17,7 @@
         android:scaleType="fitStart"/>
 
 
-    <com.route4me.licenseplate.common.GraphicOverlay
+    <com.radko.licenseplate.common.GraphicOverlay
         android:id="@+id/previewOverlay"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -25,7 +25,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true" />
 
-    <com.route4me.licenseplate.view.LicensePlateView
+    <com.radko.licenseplate.view.LicensePlateView
         android:id="@+id/licensePlateView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
